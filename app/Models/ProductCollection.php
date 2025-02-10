@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 
 class ProductCollection extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasTranslatableSlug, HasTranslations;
+    use InteractsWithMedia, HasTranslatableSlug, HasTranslations,HasRoles;
 
     public array $translatable = [
         'name',

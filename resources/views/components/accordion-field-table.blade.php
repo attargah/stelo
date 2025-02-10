@@ -28,7 +28,7 @@
                     @while(!empty($values[$key]))
 
                         <td>
-                            {!! $values[$key]->value['items'][$i]['Value'] !!}
+                            {!! $values[$key]->value['items'][$i]['value'] !!}
                         </td>
 
                         @php($key++)

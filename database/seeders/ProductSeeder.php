@@ -18,7 +18,7 @@ class ProductSeeder extends Seeder
     {
         DB::transaction(function () {
 
-            DB::table('products')->insert([
+            $products = [
                 [
                     'id' => 2,
                     'code' => '#P00G1',
@@ -32,53 +32,234 @@ class ProductSeeder extends Seeder
                     'updated_at' => now(),
 
                 ],
-            ]);
+                [
+                    'id' => 3,
+                    'code' => '#P00G2',
+                    'name' => json_encode(['tr' => 'Talitha 1', 'en' => 'Talitha 1']),
+                    'slug' => json_encode(['tr' => 'talitha-1', 'en' => 'talitha-1']),
+                    'description' => json_encode(['tr' => 'Beyaz Koyu Damarlı Kuvars Tezgah', 'en' => 'White Dark Veined Quartz Countertop']),
+                    'content' => json_encode([
+                        'tr' => '<p>En saf tonlardan oluşan zamansız beyaz bir taban, karanlık ve ışığın etkileşimiyle yumuşak gölgelerin hareketiyle dokunuyor.</p>',
+                        'en' => '<p>A timeless white base composed of the purest tones is woven with the movement of soft shadows through the interplay of darkness and light.</p>']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
 
-            $product = Product::find(2);
-            $product->addMedia(public_path('assets/image/photo/15.webp'))->preservingOriginal()->toMediaCollection('images');
-            $product->addMedia(public_path('assets/image/photo/16.webp'))->preservingOriginal()->toMediaCollection('images');
-            $product->addMedia(public_path('assets/image/photo/4.webp'))->preservingOriginal()->toMediaCollection('images');
-            $product->addMedia(public_path('assets/file/sample.pdf'))->preservingOriginal()->toMediaCollection('document');
+                ],
+                [
+                    'id' => 4,
+                    'code' => '#P00G3',
+                    'name' => json_encode(['tr' => 'Talitha 2', 'en' => 'Talitha 2']),
+                    'slug' => json_encode(['tr' => 'talitha-2', 'en' => 'talitha-2']),
+                    'description' => json_encode(['tr' => 'Beyaz Koyu Damarlı Kuvars Tezgah', 'en' => 'White Dark Veined Quartz Countertop']),
+                    'content' => json_encode([
+                        'tr' => '<p>En saf tonlardan oluşan zamansız beyaz bir taban, karanlık ve ışığın etkileşimiyle yumuşak gölgelerin hareketiyle dokunuyor.</p>',
+                        'en' => '<p>A timeless white base composed of the purest tones is woven with the movement of soft shadows through the interplay of darkness and light.</p>']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
 
-            DB::table('product_attributes')->insert([
+                ],
+                [
+                    'id' => 5,
+                    'code' => '#P00G4',
+                    'name' => json_encode(['tr' => 'Sargas', 'en' => 'Sargas']),
+                    'slug' => json_encode(['tr' => 'sargas', 'en' => 'sargas']),
+                    'description' => json_encode(['tr' => 'Beyaz Koyu Damarlı Kuvars Tezgah', 'en' => 'White Dark Veined Quartz Countertop']),
+                    'content' => json_encode([
+                        'tr' => '<p>En saf tonlardan oluşan zamansız beyaz bir taban, karanlık ve ışığın etkileşimiyle yumuşak gölgelerin hareketiyle dokunuyor.</p>',
+                        'en' => '<p>A timeless white base composed of the purest tones is woven with the movement of soft shadows through the interplay of darkness and light.</p>']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+
+                ],
+                [
+                    'id' => 6,
+                    'code' => '#P00G5',
+                    'name' => json_encode(['tr' => 'Meissa', 'en' => 'Meissa']),
+                    'slug' => json_encode(['tr' => 'meissa', 'en' => 'meissa']),
+                    'description' => json_encode(['tr' => 'Beyaz Koyu Damarlı Kuvars Tezgah', 'en' => 'White Dark Veined Quartz Countertop']),
+                    'content' => json_encode([
+                        'tr' => '<p>En saf tonlardan oluşan zamansız beyaz bir taban, karanlık ve ışığın etkileşimiyle yumuşak gölgelerin hareketiyle dokunuyor.</p>',
+                        'en' => '<p>A timeless white base composed of the purest tones is woven with the movement of soft shadows through the interplay of darkness and light.</p>']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+
+                ],
+                [
+                    'id' => 7,
+                    'code' => '#P00G6',
+                    'name' => json_encode(['tr' => 'Antares 1', 'en' => 'Antares 1']),
+                    'slug' => json_encode(['tr' => 'antares-1', 'en' => 'antares-1']),
+                    'description' => json_encode(['tr' => 'Beyaz Koyu Damarlı Kuvars Tezgah', 'en' => 'White Dark Veined Quartz Countertop']),
+                    'content' => json_encode([
+                        'tr' => '<p>En saf tonlardan oluşan zamansız beyaz bir taban, karanlık ve ışığın etkileşimiyle yumuşak gölgelerin hareketiyle dokunuyor.</p>',
+                        'en' => '<p>A timeless white base composed of the purest tones is woven with the movement of soft shadows through the interplay of darkness and light.</p>']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+
+                ],
+                [
+                    'id' => 8,
+                    'code' => '#P00G7',
+                    'name' => json_encode(['tr' => 'Antares 2', 'en' => 'Antares 2']),
+                    'slug' => json_encode(['tr' => 'antares-2', 'en' => 'antares-2']),
+                    'description' => json_encode(['tr' => 'Beyaz Koyu Damarlı Kuvars Tezgah', 'en' => 'White Dark Veined Quartz Countertop']),
+                    'content' => json_encode([
+                        'tr' => '<p>En saf tonlardan oluşan zamansız beyaz bir taban, karanlık ve ışığın etkileşimiyle yumuşak gölgelerin hareketiyle dokunuyor.</p>',
+                        'en' => '<p>A timeless white base composed of the purest tones is woven with the movement of soft shadows through the interplay of darkness and light.</p>']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+
+                ],
+            ];
+
+            DB::table('products')->insert($products);
+
+            $indis = 1;
+            $attributes = [];
+
+            foreach ($products as $product) {
+
+                $attributes[] = [
+                    'id' => 1 + ($indis * 4),
+                    'product_id' => $product['id'],
+                    'title' => json_encode(['tr' => 'Temizlemesi Kolay', 'en' => 'Easy to Clean']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+                $attributes[] = [
+                    'id' => 2 + ($indis * 4),
+                    'product_id' => $product['id'],
+                    'title' => json_encode(['tr' => 'Hijyenik', 'en' => 'Hygienic']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+                $attributes[] = [
+                    'id' => 3 + ($indis * 4),
+                    'product_id' => $product['id'],
+                    'title' => json_encode(['tr' => 'Çevre Dostu', 'en' => 'Environmentally Friendly']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+                $attributes[] = [
+                    'id' => 4 + ($indis * 4),
+                    'product_id' => $product['id'],
+                    'title' => json_encode(['tr' => 'Çizilmeye Dayanıklı', 'en' => 'Scratch Resistant']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+
+
+                $product = Product::find($product['id']);
+                $product->addMedia(public_path('assets/image/photo/15.webp'))->preservingOriginal()->toMediaCollection('images');
+                $product->addMedia(public_path('assets/image/photo/16.webp'))->preservingOriginal()->toMediaCollection('images');
+                $product->addMedia(public_path('assets/image/photo/4.webp'))->preservingOriginal()->toMediaCollection('images');
+                $product->addMedia(public_path('assets/file/sample.pdf'))->preservingOriginal()->toMediaCollection('document');
+                $indis++;
+            }
+
+            foreach ($products as $product){
+
+                $related = [
+                    [
+                        'product_id' => $product['id'],
+                        'related_product_id' => 2,
+                    ],
+                    [
+                        'product_id' => $product['id'],
+                        'related_product_id' => 3,
+                    ],
+                    [
+                        'product_id' => $product['id'],
+                        'related_product_id' => 4,
+                    ],
+                    [
+                        'product_id' => $product['id'],
+                        'related_product_id' => 5,
+                    ],
+                    [
+                        'product_id' => $product['id'],
+                        'related_product_id' => 6,
+                    ],
+                    [
+                        'product_id' => $product['id'],
+                        'related_product_id' => 7,
+                    ],
+                    [
+                        'product_id' => $product['id'],
+                        'related_product_id' => 8,
+                    ],
+                ];
+                $related = array_filter($related, function($item) use ($product) {
+                    return $item['related_product_id'] !== $product['id'];
+                });
+
+                DB::table('related_products')->insert($related);
+            }
+
+
+            DB::table('product_attributes')->insert($attributes);
+
+            $i = 1;
+            foreach ($attributes as $attr) {
+                $productAttributes = ProductAttribute::find($attr['id']);
+                $productAttributes->addMedia(public_path('assets/image/icon/' . $i . '.webp'))->preservingOriginal()->toMediaCollection('images');
+                $i++;
+                if ($i == 5) {
+                    $i = 1;
+                }
+
+            }
+
+
+            DB::table('product_labels')->insert([
                 [
                     'id' => 1,
-                    'product_id' => 2,
-                    'title' => json_encode(['tr' => 'Temizlemesi Kolay', 'en' => 'Easy to Clean']),
+                    'color' => '#89b5bc',
+                    'name' => json_encode(['tr' => 'Yeni', 'en' => 'New']),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
                 [
                     'id' => 2,
-                    'product_id' => 2,
-                    'title' => json_encode(['tr' => 'Hijyenik', 'en' => 'Hygienic']),
+                    'color' => '#f5f0ea',
+                    'name' => json_encode(['tr' => 'Popüler', 'en' => 'Popular']),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+
+            ]);
+
+
+            DB::table('product_label')->insert([
+                [
+                    'id' => 1,
+                    'product_id' => '3',
+                    'product_label_id' => '1',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 2,
+                    'product_id' => '4',
+                    'product_label_id' => '1',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
                 [
                     'id' => 3,
-                    'product_id' => 2,
-                    'title' => json_encode(['tr' => 'Çevre Dostu', 'en' => 'Environmentally Friendly']),
+                    'product_id' => '5',
+                    'product_label_id' => '1',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
                 [
                     'id' => 4,
-                    'product_id' => 2,
-                    'title' => json_encode(['tr' => 'Çizilmeye Dayanıklı', 'en' => 'Scratch Resistant']),
+                    'product_id' => '6',
+                    'product_label_id' => '2',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
             ]);
-
-            $productAttributes = ProductAttribute::find(1);
-            $productAttributes->addMedia(public_path('assets/image/icon/1.webp'))->preservingOriginal()->toMediaCollection('images');
-            $productAttributes = ProductAttribute::find(2);
-            $productAttributes->addMedia(public_path('assets/image/icon/2.webp'))->preservingOriginal()->toMediaCollection('images');
-            $productAttributes = ProductAttribute::find(3);
-            $productAttributes->addMedia(public_path('assets/image/icon/3.webp'))->preservingOriginal()->toMediaCollection('images');
-            $productAttributes = ProductAttribute::find(4);
-            $productAttributes->addMedia(public_path('assets/image/icon/4.webp'))->preservingOriginal()->toMediaCollection('images');
 
 
             DB::table('product_collections')->insert([
@@ -163,12 +344,53 @@ class ProductSeeder extends Seeder
             $productCollections->addMedia(public_path('assets/image/photo/sub-menu-4.webp'))->preservingOriginal()->toMediaCollection('image');
 
 
-
             DB::table('product_collection')->insert([
                 [
                     'id' => 1,
                     'product_id' => 2,
                     'product_collection_id' => 8,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 2,
+                    'product_id' => 3,
+                    'product_collection_id' =>2,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 3,
+                    'product_id' => 4,
+                    'product_collection_id' => 2,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 4,
+                    'product_id' => 5,
+                    'product_collection_id' => 4,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 5,
+                    'product_id' => 6,
+                    'product_collection_id' => 5,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 6,
+                    'product_id' => 7,
+                    'product_collection_id' => 6,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 7,
+                    'product_id' => 8,
+                    'product_collection_id' => 7,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
@@ -196,6 +418,48 @@ class ProductSeeder extends Seeder
                 [
                     'id' => 3,
                     'product_id' => 2,
+                    'specification_group_id' => 2,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 4,
+                    'product_id' => 3,
+                    'specification_group_id' => 2,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 5,
+                    'product_id' =>4,
+                    'specification_group_id' => 2,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 6,
+                    'product_id' => 5,
+                    'specification_group_id' => 2,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 7,
+                    'product_id' =>6,
+                    'specification_group_id' => 2,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 8,
+                    'product_id' => 7,
+                    'specification_group_id' => 2,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
+                [
+                    'id' => 9,
+                    'product_id' => 8,
                     'specification_group_id' => 2,
                     'created_at' => now(),
                     'updated_at' => now(),
@@ -243,17 +507,17 @@ class ProductSeeder extends Seeder
                     'value' => json_encode(['tr' => [
                         'label' => 'Kalınlık',
                         'items' => [
-                            ['Value' => '<div class="line" style="height: 1.5mm; background-color: #3b3c40"></div> 1.5mm'],
-                            ['Value' => '<div class="line" style="height: 2mm; background-color: #3b3c40"></div> 2mm'],
-                            ['Value' => '<div class="line" style="height: 3mm; background-color: #3b3c40"></div>3mm']
+                            ['value' => '<div class="line" style="height: 1.5mm; background-color: #3b3c40"></div> 1.5mm'],
+                            ['value' => '<div class="line" style="height: 2mm; background-color: #3b3c40"></div> 2mm'],
+                            ['value' => '<div class="line" style="height: 3mm; background-color: #3b3c40"></div>3mm']
                         ]
                     ],
                         'en' => [
                             'label' => 'Thickness',
                             'items' => [
-                                ['Value' => '<div class="line" style="height: 1.5mm; background-color: #3b3c40"></div> 1.5mm'],
-                                ['Value' => '<div class="line" style="height: 2mm; background-color: #3b3c40"></div> 2mm'],
-                                ['Value' => '<div class="line" style="height: 3mm; background-color: #3b3c40"></div>3mm']
+                                ['value' => '<div class="line" style="height: 1.5mm; background-color: #3b3c40"></div> 1.5mm'],
+                                ['value' => '<div class="line" style="height: 2mm; background-color: #3b3c40"></div> 2mm'],
+                                ['value' => '<div class="line" style="height: 3mm; background-color: #3b3c40"></div>3mm']
                             ]
                         ]
                     ]),
@@ -267,17 +531,17 @@ class ProductSeeder extends Seeder
                         'tr' => [
                             'label' => 'Ölçüler',
                             'items' => [
-                                ['Value' => '330x165cm'],
-                                ['Value' => '350x200cm'],
-                                ['Value' => '310x152cm']
+                                ['value' => '330x165cm'],
+                                ['value' => '350x200cm'],
+                                ['value' => '310x152cm']
                             ]
                         ],
                         'en' => [
                             'label' => 'Dimensions',
                             'items' => [
-                                ['Value' => '330x165cm'],
-                                ['Value' => '350x200cm'],
-                                ['Value' => '310x152cm']
+                                ['value' => '330x165cm'],
+                                ['value' => '350x200cm'],
+                                ['value' => '310x152cm']
                             ]
                         ]
                     ]),

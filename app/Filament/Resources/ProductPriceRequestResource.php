@@ -25,21 +25,40 @@ class ProductPriceRequestResource extends Resource
 
     protected static ?string $navigationGroup = 'Products';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('panel.forms');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('panel.product-price-requests');
+    }
+
+    public function getTitle(): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return __('panel.product-price-request');
+    }
+    public static function getModelLabel(): string
+    {
+        return  __('panel.product-price-request');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('name')->required()->label('Name'),
-                TextInput::make('email')->email()->required()->label('Email'),
-                TextInput::make('phone')->numeric()->required()->label('Phone'),
+                TextInput::make('name')->required()->label(__('panel.name')),
+                TextInput::make('email')->email()->required()->label(__('panel.email')),
+                TextInput::make('phone')->numeric()->required()->label(__('panel.phone')),
                 Select::make('product_id')
                     ->relationship('product', 'name')
                     ->required()
-                    ->label('Product')
+                    ->label(__('panel.product-name'))
                     ->preload()
-                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name['tr'] ?? ''),
-                TextArea::make('note')->required()->label('Note'),
-                TextInput::make('ip_address')->required()->disabled()->label('IP Address')->default(request()->ip()),
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name ?? ''),
+                TextArea::make('note')->required()->label(__('panel.note')),
+                TextInput::make('ip_address')->required()->disabled()->label(__('panel.ip-address'))->default(request()->ip()),
             ]);
     }
 
@@ -47,16 +66,16 @@ class ProductPriceRequestResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable(),
-                TextColumn::make('email')->searchable(),
-                TextColumn::make('phone')->searchable(),
-                TextColumn::make('product.name.tr')->label('Product name')->searchable()
+                TextColumn::make('name')->searchable()->label(__('panel.name')),
+                TextColumn::make('email')->searchable()->label(__('panel.email')),
+                TextColumn::make('phone')->searchable()->label(__('panel.phone')),
+                TextColumn::make('product.name')->label(__('panel.product-name'))->searchable()
                     ->url(fn ($record) => route('filament.admin.resources.products.edit', $record->product_id))
                 ->openUrlInNewTab(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->label('Oluşturulma Tarihi'),
+                    ->label(__('panel.created_at')),
             ])
             ->filters([
                 //

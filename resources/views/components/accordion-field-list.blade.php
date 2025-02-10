@@ -7,8 +7,10 @@
             <a href="javascript:void(0)"
                class="corner-profile flex flex-col gap-5 group/link">
                 <div class="image aspect-[110/70] w-full h-auto overflow-clip translate-z-0">
+                    @if(!$value->getMedia('image')->isEmpty())
                     <img src="{{$value->getMedia('image')->first()->getUrl()}}"
                          class="full-cover" alt=""/>
+                    @endif
                 </div>
                 <div class="text-field">
                     <p class="name clamp-fs [--minv-fs:14] [--maxv-fs:16] [font-size:--clamp-fs] leading-tight min-md:tracking-[-0.02em] text-main-500 font-medium text-center duration-300 group-hover/link:text-secondary-500">

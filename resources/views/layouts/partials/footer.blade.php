@@ -162,28 +162,29 @@
                         <p class="title clamp-fs [--minv-fs:22] [--maxv-fs:32] [font-size:--clamp-fs] leading-tight md:leading-none text-white [font-family:var(--playfair)]">E-Bülten</p>
                     </div>
                     <div class="form-wrapper clamp-1 [--minv-1:20] [--maxv-1:36] mt-[--clamp-1]">
-                        <form action="#">
+                        <form action="{{route('form.send.mail_marketing')}}" method="post">
+                            @csrf
                             <div class="grid grid-cols-11 sm:grid-cols-1 gap-[24px]">
                                 <div class="form-item group/item col-span-4 sm:col-span-1 sm:order-1">
                                     <div class="custom-input relative">
-                                        <input type="email" placeholder="E-Posta Adresiniz..." class="w-full h-[64px] lg:h-[52px] rounded-full border border-white/10 bg-transparent text-[16px] font-medium text-white placeholder:text-white/65 clamp-1 [--minv-1:20] [--maxv-1:42] px-[--clamp-1] duration-300 hover:border-white/50 focus:border-white">
+                                        <input type="email" name="email" placeholder="{{__('page.your-email')}}" class="w-full h-[64px] lg:h-[52px] rounded-full border border-white/10 bg-transparent text-[16px] font-medium text-white placeholder:text-white/65 clamp-1 [--minv-1:20] [--maxv-1:42] px-[--clamp-1] duration-300 hover:border-white/50 focus:border-white">
                                     </div>
                                 </div>
                                 <div class="form-item group/item col-span-4 sm:col-span-1 sm:order-2">
                                     <div class="custom-input relative">
-                                        <input type="tel" placeholder="Telefon numaranız..." class="w-full h-[64px] lg:h-[52px] rounded-full border border-white/10 bg-transparent text-[16px] font-medium text-white placeholder:text-white/65 clamp-1 [--minv-1:20] [--maxv-1:42] px-[--clamp-1] duration-300 hover:border-white/50 focus:border-white">
+                                        <input type="tel" name="phone" placeholder="{{__('page.your-phone')}}" class="w-full h-[64px] lg:h-[52px] rounded-full border border-white/10 bg-transparent text-[16px] font-medium text-white placeholder:text-white/65 clamp-1 [--minv-1:20] [--maxv-1:42] px-[--clamp-1] duration-300 hover:border-white/50 focus:border-white">
                                     </div>
                                 </div>
                                 <div class="form-item group/item col-span-3 sm:col-span-1 sm:order-4">
-                                    <button class="group/link flex items-center justify-center bg-secondary-500 clamp-1 [--minv-1:52] [--maxv-1:64] h-[--clamp-1] rounded-full gap-[10px] duration-300 hover:bg-secondary-600 w-full sm:w-full px-2">
-                                        <span class="text text-[16px] leading-tight text-white font-medium">ABONE OL</span>
+                                    <button type="submit" class="group/link flex items-center justify-center bg-secondary-500 clamp-1 [--minv-1:52] [--maxv-1:64] h-[--clamp-1] rounded-full gap-[10px] duration-300 hover:bg-secondary-600 w-full sm:w-full px-2">
+                                        <span class="text text-[16px] leading-tight text-white font-medium">{{__('page.subscribe')}}</span>
                                     </button>
                                 </div>
                                 <div class="form-item group/item col-span-12 sm:col-span-1 sm:order-3">
                                     <div class="custom-checkbox relative flex items-center gap-[10px] group/checkbox">
-                                        <input type="checkbox" class="absolute left-0 top-0 w-full h-full z-[2] opacity-0 cursor-pointer peer">
+                                        <input required name="approve_check" type="checkbox" class="absolute left-0 top-0 w-full h-full z-[2] opacity-0 cursor-pointer peer">
                                         <div class="box relative size-[20px] rounded-full border border-white/10 peer-hover:border-white/50 peer-checked:!border-white duration-300 before:absolute before:left-1/2 before:top-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:size-[10px] before:rounded-full before:bg-white before:duration-300 before:scale-0 peer-checked:before:scale-100 shrink-0"></div>
-                                        <div class="text clamp-fs [--minv-fs:14] [--maxv-fs:16] [font-size:--clamp-fs] leading-tight text-white/65 [&_input]:text-white [&_input]:cursor-pointer [&_input]:duration-300 [&_input:hover]:text-white/70 [&_input]:relative [&_input]:z-[3] duration-300 peer-checked:text-white">Paylaştığım e-posta adresimin <input class="trigger" popovertarget="gdpr" popovertargetaction="show" type="button" value="Stelo e-bülten iletişiminde"> kullanılmasını onaylıyorum.</div>
+                                        <div class="text clamp-fs [--minv-fs:14] [--maxv-fs:16] [font-size:--clamp-fs] leading-tight text-white/65 [&_input]:text-white [&_input]:cursor-pointer [&_input]:duration-300 [&_input:hover]:text-white/70 [&_input]:relative [&_input]:z-[3] duration-300 peer-checked:text-white">{!!  __('page.mail-marketing-approve-text',['html'=>'<input class="trigger" popovertarget="gdpr" popovertargetaction="show" type="button" value="'.__('page.stelo-mail-marketing').'">'])!!}  </div>
                                     </div>
                                 </div>
                             </div>
@@ -233,31 +234,15 @@
                     </div>
                     <div class="social-media-wrapper md:flex md:justify-center sm:justify-center">
                         <ul class="flex clamp-1 [--minv-1:16] [--maxv-1:20] gap-[--clamp-1]">
-                            <li>
-                                <a href="javascript:void(0)" class="flex items-center justify-center group/link">
-                                    <i class="icon icon-facebook clamp-fs [--minv-fs:20] [--maxv-fs:24] [font-size:--clamp-fs] h-[--clamp-fs] text-white/25 block leading-none duration-300 group-hover/link:text-secondary-500"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="flex items-center justify-center group/link">
-                                    <i class="icon icon-twitter clamp-fs [--minv-fs:20] [--maxv-fs:24] [font-size:--clamp-fs] h-[--clamp-fs] text-white/25 block leading-none duration-300 group-hover/link:text-secondary-500"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="flex items-center justify-center group/link">
-                                    <i class="icon icon-linkedin clamp-fs [--minv-fs:20] [--maxv-fs:24] [font-size:--clamp-fs] h-[--clamp-fs] text-white/25 block leading-none duration-300 group-hover/link:text-secondary-500"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="flex items-center justify-center group/link">
-                                    <i class="icon icon-youtube clamp-fs [--minv-fs:20] [--maxv-fs:24] [font-size:--clamp-fs] h-[--clamp-fs] text-white/25 block leading-none duration-300 group-hover/link:text-secondary-500"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)" class="flex items-center justify-center group/link">
-                                    <i class="icon icon-instagram clamp-fs [--minv-fs:20] [--maxv-fs:24] [font-size:--clamp-fs] h-[--clamp-fs] text-white/25 block leading-none duration-300 group-hover/link:text-secondary-500"></i>
-                                </a>
-                            </li>
+                            @foreach($settings->site_social as $social)
+
+                                <li>
+                                    <a href="{{$social['url']}}" class="flex items-center justify-center group/link">
+                                        <i class="icon {{$social['icon']}} clamp-fs [--minv-fs:20] [--maxv-fs:24] [font-size:--clamp-fs] h-[--clamp-fs] text-white/25 block leading-none duration-300 group-hover/link:text-secondary-500"></i>
+                                    </a>
+                                </li>
+                            @endforeach
+
                         </ul>
                     </div>
                     <div class="signature">

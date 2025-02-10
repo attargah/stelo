@@ -32,21 +32,39 @@ class ProductResource extends Resource
 
     protected static ?string $navigationGroup = 'Products';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('panel.products');
+    }
+    public static function getNavigationLabel(): string
+    {
+        return __('panel.products');
+    }
+
+    public function getTitle(): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return __('panel.product');
+    }
+    public static function getModelLabel(): string
+    {
+        return  __('panel.product');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
 
-                Section::make('İçerik')
+                Section::make(__('panel.content'))
                     ->schema([
-                        Tabs::make('Translations')
+                        Tabs::make(__('panel.translations'))
                             ->tabs([
-                                Tab::make('Türkçe')
+                                Tab::make(__('panel.turkish'))
                                     ->schema([
                                         TextInput::make('name.tr')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->label('Ürün Adı')
+                                            ->label(__('panel.product-name',locale: 'tr'))
                                             ->afterStateUpdated(function ($state, $set) {
                                                 if ($state) {
                                                     $set('slug.tr', Str::slug($state));
@@ -54,16 +72,16 @@ class ProductResource extends Resource
                                             }),
                                         Textarea::make('description.tr')
                                             ->nullable()
-                                            ->label('Açıklama'),
+                                            ->label(__('panel.description',locale: 'tr')),
                                         RichEditor::make('content.tr')
                                             ->nullable()
-                                            ->label('İçerik'),
+                                            ->label(__('panel.content',locale: 'tr')),
                                     ]),
-                                Tab::make('English')
+                                Tab::make(__('panel.english'))
                                     ->schema([
                                         TextInput::make('name.en')
                                             ->live(onBlur: true)
-                                            ->label('Product Name')
+                                            ->label(__('panel.product-name',locale: 'en'))
                                             ->afterStateUpdated(function ($state, $set) {
                                                 if ($state) {
                                                     $set('slug.en', Str::slug($state));
@@ -71,44 +89,53 @@ class ProductResource extends Resource
                                             }),
                                         RichEditor::make('description.en')
                                             ->nullable()
-                                            ->label('Description'),
+                                            ->label(__('panel.description',locale: 'en')),
                                         RichEditor::make('content.en')
                                             ->nullable()
-                                            ->label('Content'),
+                                            ->label(__('panel.content',locale: 'en')),
                                     ]),
                             ])
                     ])->columnSpan(['lg' => 2]),
 
-                Section::make('Bağlantılar')
+                Section::make(__('panel.connections'))
                     ->schema([
                         TextInput::make('code')
                             ->required()
                             ->unique(ignoreRecord: true)
-                            ->label('Ürün Kodu'),
+                            ->label(__('panel.product-code')),
+                        Forms\Components\Select::make('related_products')
+                            ->label('Related Products')
+                            ->multiple()
+                            ->relationship('relatedProducts', 'name')
+                            ->options(
+                                Product::all()->pluck('name', 'id')
+                            )
+                            ->required(),
                         Select::make('collections')
                             ->relationship('collections', 'name')
                             ->multiple()
                             ->preload()
+                            ->required()
                             ->searchable()
                             ->getOptionLabelFromRecordUsing(function ($record) {
-                                return $record->getTranslation('name', app()->getLocale());
+                                return $record->name;
                             })
-                            ->label('Koleksiyonlar'),
-                        Tabs::make('Translations')
+                            ->label(__('panel.collections')),
+                        Tabs::make(__('panel.translations'))
                             ->tabs([
-                                Tab::make('Türkçe')
+                                Tab::make(__('panel.turkish'))
                                     ->schema([
                                         Forms\Components\TextInput::make('slug.tr')
-                                            ->label('Slug')
+                                            ->label(__('panel.slug',locale: 'tr'))
                                             ->required()
                                             ->afterStateUpdated(function ($state, $set) {
                                                 $set('slug.tr', STR::slug($state));
                                             }),
                                     ]),
-                                Tab::make('English')
+                                Tab::make(__('panel.english'))
                                     ->schema([
                                         Forms\Components\TextInput::make('slug.en')
-                                            ->label('Slug')
+                                            ->label(__('panel.slug',locale: 'en'))
                                             ->required()
                                             ->afterStateUpdated(function ($state, $set) {
                                                 $set('slug.en', STR::slug($state));
@@ -123,7 +150,7 @@ class ProductResource extends Resource
                             ->getOptionLabelFromRecordUsing(function ($record) {
                                 return $record->getTranslation('name', app()->getLocale());
                             })
-                            ->label('Etiketler'),
+                            ->label(__('panel.labels')),
                         Repeater::make('attributes')
                             ->relationship()
                             ->collapsed()
@@ -133,30 +160,30 @@ class ProductResource extends Resource
                                     ->image()
                                     ->imageEditor()
                                     ->reorderable()
-                                    ->label('Görsel'),
-                                Tabs::make('Translations')
+                                    ->label(__('panel.image')),
+                                Tabs::make(__('panel.translations'))
                                     ->tabs([
-                                        Tab::make('Türkçe')
+                                        Tab::make(__('panel.turkish'))
                                             ->schema([
                                                 TextInput::make('title.tr')
-                                                    ->label('Özellik Adı')
+                                                    ->label(__('panel.attributes-name',locale: 'tr'))
                                                     ->required(),
                                             ]),
-                                        Tab::make('English')
+                                        Tab::make(__('panel.english'))
                                             ->schema([
                                                 TextInput::make('title.en')
-                                                    ->label('Attribute Name'),
+                                                    ->label(__('panel.attributes-name',locale: 'en')),
                                             ]),
                                     ])
                             ])
                             ->columns(1)
-                            ->label('Özellikler')
-                            ->addActionLabel('Yeni Özellik Ekle')
+                            ->label(__('panel.attributes'))
+                            ->addActionLabel(__('panel.add-new-attribute'))
                             ->collapsible()
                             ->defaultItems(0),
                     ])->columnSpan(['lg' => 1]),
 
-                Section::make('Ürün Bilgileri')
+                Section::make(__('panel.product-informations'))
                     ->schema([
 
                         SpatieMediaLibraryFileUpload::make('images')
@@ -165,16 +192,16 @@ class ProductResource extends Resource
                             ->image()
                             ->imageEditor()
                             ->reorderable()
-                            ->label('Görseller'),
+                            ->label(__('panel.images')),
 
                         SpatieMediaLibraryFileUpload::make('document')
                             ->collection('document')
                             ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
                             ->maxSize(5120)
-                            ->label('Dosya'),
+                            ->label(__('panel.file')),
                     ])->columnSpan(['lg' => 3]),
 
-                Section::make('Ürün Spesifikasyonları')
+                Section::make(__('panel.product-specifications'))
                     ->schema([
                         Select::make('groups')
                             ->relationship('groups', 'name')
@@ -182,8 +209,11 @@ class ProductResource extends Resource
                             ->preload()
                             ->searchable()
                             ->getOptionLabelFromRecordUsing(fn ($record) => $record->name ?? '')
-                            ->label('Özellik Grupları'),
+                            ->label(__('panel.specification-groups')),
+
                     ])->columnSpan(['lg' => 3]),
+
+
 
             ])
             ->columns([
@@ -195,43 +225,39 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                SpatieMediaLibraryImageColumn::make('images')
-                    ->collection('images')
-                    ->label('Görseller')
-                    ->toggleable(),
 
                 TextColumn::make('code')
                     ->searchable()
                     ->sortable()
-                    ->label('Ürün Kodu'),
+                    ->label(__('panel.product-code')),
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable()
-                    ->label('Ürün Adı'),
+                    ->label(__('panel.product-name')),
                 TextColumn::make('collections.name')
                     ->formatStateUsing(function ($state, $record) {
                         return $record->collections->pluck('name')->implode(', ');
                     })
                     ->badge()
-                    ->label('Koleksiyonlar'),
+                    ->label(__('panel.collections')),
                 TextColumn::make('labels.name')
                     ->formatStateUsing(function ($state, $record) {
                         return $record->labels->pluck('name')->implode(', ');
                     })
                     ->badge()
-                    ->label('Etiketler'),
+                    ->label(__('panel.labels')),
                 TextColumn::make('groups')
                     ->formatStateUsing(function ($state,$record) {
                         return $record->groups->pluck('name')->implode(', ');
                     })
                     ->badge()
-                    ->label('Teknik Özellikler'),
+                    ->label(__('panel.specification-groups')),
                 TextColumn::make('created_at')
                     ->dateTime('d.m.Y H:i')
                     ->sortable()
                     ->toggleable()
                     ->since()
-                    ->label('Oluşturulma Tarihi'),
+                    ->label(__('panel.created_at')),
             ])
             ->filters([
                 //
@@ -253,8 +279,6 @@ class ProductResource extends Resource
 
         ];
     }
-
-
 
     public static function getPages(): array
     {

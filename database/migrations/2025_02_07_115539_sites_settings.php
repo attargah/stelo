@@ -15,7 +15,33 @@ return new class extends SettingsMigration
         $this->migrator->add('sites.site_author', 'Penta Yazılım');
         $this->migrator->add('sites.site_email', 'satis@pentayazilim.com');
         $this->migrator->add('sites.site_phone', '+908503026950');
-        $this->migrator->add('sites.site_social', []);
+        $this->migrator->add('sites.site_social', [
+            [
+                "platform" => "Facebook",
+                "url" => "https://www.facebook.com/pentayazilimcom",
+                "icon" => "icon-facebook"
+            ],
+            [
+                "platform" => "Twitter",
+                "url" => "https://x.com/pentayazilim",
+                "icon" => "icon-twitter"
+            ],
+            [
+                "platform" => "LinkedIn",
+                "url" => "https://tr.linkedin.com/company/pentayazilim",
+                "icon" => "icon-linkedin"
+            ],
+            [
+                "platform" => "YouTube",
+                "url" => "https://www.youtube.com/@pentayazilimtr",
+                "icon" => "icon-youtube"
+            ],
+            [
+                "platform" => "Instagram",
+                "url" => "https://www.instagram.com/pentayazilim/",
+                "icon" => "icon-instagram"
+            ]
+        ]);
     }
 
     public function down(): void

@@ -24,6 +24,25 @@ class ProductCollectionResource extends Resource
 
     protected static ?string $navigationGroup = 'Products';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('panel.products');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('panel.product-collections');
+    }
+
+    public function getTitle(): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return __('panel.product-collection');
+    }
+    public static function getModelLabel(): string
+    {
+        return  __('panel.product-collection');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -34,15 +53,15 @@ class ProductCollectionResource extends Resource
                             ->collection('image')
                             ->image()
                             ->imageEditor()
-                            ->label('Görsel'),
+                            ->label(__('panel.image')),
 
-                        Forms\Components\Tabs::make('Translations')
+                        Forms\Components\Tabs::make(__('panel.translations'))
                             ->tabs([
-                                Forms\Components\Tabs\Tab::make('Türkçe')
+                                Forms\Components\Tabs\Tab::make(__('panel.turkish'))
                                     ->schema([
                                         Forms\Components\TextInput::make('name.tr')
                                             ->required()
-                                            ->label('Koleksiyon Adı')
+                                            ->label(__('panel.collection-name',locale: 'tr'))
                                             ->live(onBlur: true)
                                             ->afterStateUpdated(function ($state, $set) {
                                                 if ($state) {
@@ -50,23 +69,23 @@ class ProductCollectionResource extends Resource
                                                 }
                                             }),
                                         Forms\Components\TextInput::make('slug.tr')
-                                            ->label('Slug')
+                                            ->label(__('panel.slug',locale: 'tr'))
                                             ->required()
                                             ->reactive()
                                             ->afterStateUpdated(function ($state, $set) {
                                                 $set('slug.tr', STR::slug($state));
                                             }),
-                                        Forms\Components\RichEditor::make('description.tr')
+                                        Forms\Components\Textarea::make('description.tr')
 
-                                            ->label('Açıklama'),
+                                            ->label(__('panel.description',locale: 'tr')),
                                         Forms\Components\RichEditor::make('content.tr')
 
-                                            ->label('İçerik'),
+                                            ->label(__('panel.content',locale: 'tr')),
                                     ]),
-                                Forms\Components\Tabs\Tab::make('English')
+                                Forms\Components\Tabs\Tab::make(__('panel.english'))
                                     ->schema([
                                         Forms\Components\TextInput::make('name.en')
-                                            ->label('Collection Name')
+                                            ->label(__('panel.collection-name', locale: 'tr'))
                                             ->live(onBlur: true)
                                             ->afterStateUpdated(function ($state, $set) {
                                                 if ($state) {
@@ -74,16 +93,16 @@ class ProductCollectionResource extends Resource
                                                 }
                                             }),
                                         Forms\Components\TextInput::make('slug.en')
-                                            ->label('Slug')
+                                            ->label(__('panel.slug', locale: 'tr'))
                                             ->required()
                                             ->reactive()
                                             ->afterStateUpdated(function ($state, $set) {
                                                 $set('slug.en', STR::slug($state));
                                             }),
                                         Forms\Components\RichEditor::make('description.en')
-                                            ->label('Description'),
+                                            ->label(__('panel.description', locale: 'tr')),
                                         Forms\Components\RichEditor::make('content.en')
-                                            ->label('Content'),
+                                            ->label(__('panel.content', locale: 'tr')),
                                     ]),
                             ])
                     ])
@@ -96,15 +115,15 @@ class ProductCollectionResource extends Resource
             ->columns([
                 SpatieMediaLibraryImageColumn::make('image')
                     ->collection('image')
-                    ->label('Görsel'),
-                Tables\Columns\TextColumn::make('name.tr')
+                    ->label(__('panel.image')),
+                Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable()
-                    ->label('Koleksiyon Adı'),
+                    ->label(__('panel.collection-name')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->label('Oluşturulma Tarihi'),
+                    ->label(__('panel.created_at')),
             ])
             ->filters([
                 //

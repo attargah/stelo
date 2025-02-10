@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 
 class ProductAttribute extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasTranslations;
+    use InteractsWithMedia, HasTranslations,HasRoles;
 
     public array $translatable = [
         'title',

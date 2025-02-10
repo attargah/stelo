@@ -11,11 +11,5 @@ class CreateProduct extends CreateRecord
 
     protected static string $resource = ProductResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\LocaleSwitcher::make(),
-        ];
-    }
 
 }

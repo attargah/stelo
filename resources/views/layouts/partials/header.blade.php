@@ -447,26 +447,28 @@ mobile-menu-1" data-detect-scroll-direction="reset-at-top" data-detect-scroll-of
                         <div class="current-language">
                             <a href="javascript:void(0)" class="flex group/link">
                                 <div class="image aspect-square clamp-1 [--minv-1:20] [--maxv-1:24] max-w-[--clamp-1] w-full h-auto overflow-clip translate-z-0 rounded-full">
-                                    <img src="{{asset('assets/image/static/flag-tr.webp')}}" class="full-cover" alt="">
+                                    <img src="{{asset('assets/image/static/flag-'.$locale.'.webp')}}" class="full-cover" alt="">
                                 </div>
                             </a>
                         </div>
                         <div class="other-language absolute right-0 top-full w-max duration-300 opacity-0 invisible translate-y-[30px] pointer-events-none group-hover/language:pointer-events-auto before:absolute before:left-0 before:w-full before:h-[30px] before:-top-[30px] before:bg-transparent before:duration-300 group-hover/language:opacity-100 group-hover/language:visible group-hover/language:translate-y-[20px] group-hover/language:before:h-[20px] group-hover/language:before:-top-[20px]">
                             <!-- NOT: "with-grid" EKLENİRSE, 2'Lİ GRİD YAPISINA GEÇER. -->
                             <!-- NOT: "with-grid" KALDIRILIRSA, ALT ALTA LİSTELENİR. -->
+
+
                             <div class="content bg-white p-[16px] rounded-[8px] flex flex-col gap-[12px] shadow-[0px_10px_20px_0px_rgba(0,0,0,0.05)] [&.with-grid]:grid [&.with-grid]:grid-cols-2">
-                                <a href="javascript:void(0)" class="flex items-center gap-[12px] group/link w-fit">
-                                    <div class="image aspect-square max-w-[20px] w-full h-auto overflow-clip translate-z-0 shrink-0">
-                                        <img src="{{asset('assets/image/static/flag-en.webp')}}" class="full-cover" alt="" />
-                                    </div>
-                                    <p class="text clamp-fs [--minv-fs:16] [--maxv-fs:20] [font-size:--clamp-fs] leading-tight font-medium duration-300 text-main-500 group-hover/link:text-main-400 uppercase">en</p>
-                                </a>
-                                <a href="javascript:void(0)" class="flex items-center gap-[12px] group/link w-fit">
-                                    <div class="image aspect-square max-w-[20px] w-full h-auto overflow-clip translate-z-0 shrink-0">
-                                        <img src="{{asset('assets/image/static/flag-es.webp')}}" class="full-cover" alt="" />
-                                    </div>
-                                    <p class="text clamp-fs [--minv-fs:16] [--maxv-fs:20] [font-size:--clamp-fs] leading-tight font-medium duration-300 text-main-500 group-hover/link:text-main-400 uppercase">es</p>
-                                </a>
+
+                              @foreach($inactiveLocales as $locale)
+                                    <a href="{{route('language',$locale)}}" class="flex items-center gap-[12px] group/link w-fit">
+                                        <div class="image aspect-square max-w-[20px] w-full h-auto overflow-clip translate-z-0 shrink-0">
+                                            <img src="{{asset('assets/image/static/flag-'.$locale.'.webp')}}" class="full-cover" alt="" />
+                                        </div>
+                                        <p class="text clamp-fs [--minv-fs:16] [--maxv-fs:20] [font-size:--clamp-fs] leading-tight font-medium duration-300 text-main-500 group-hover/link:text-main-400 uppercase">
+                                            {{$locale}}</p>
+                                    </a>
+                              @endforeach
+
+
                             </div>
                         </div>
                     </div>

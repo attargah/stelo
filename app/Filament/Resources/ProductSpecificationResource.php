@@ -24,6 +24,25 @@ class ProductSpecificationResource extends Resource
 
     protected static ?string $navigationGroup = 'Products';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('panel.products');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('panel.product-specifications');
+    }
+
+    public function getTitle(): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return __('panel.product-specification');
+    }
+    public static function getModelLabel(): string
+    {
+        return  __('panel.product-specification');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -35,130 +54,130 @@ class ProductSpecificationResource extends Resource
                             ->required()
                             ->preload()
                             ->searchable()
-                            ->getOptionLabelFromRecordUsing(fn ($record) => $record->name['tr'] ?? '')
-                            ->label('Özellik Grubu')
+                            ->getOptionLabelFromRecordUsing(fn ($record) => $record->name ?? '')
+                            ->label(__('panel.specification-groups'))
                             ->createOptionForm([
-                                Forms\Components\Tabs::make('Translations')
+                                Forms\Components\Tabs::make(__('panel.translations'))
                                     ->tabs([
-                                        Forms\Components\Tabs\Tab::make('Türkçe')
+                                        Forms\Components\Tabs\Tab::make(__('panel.turkish'))
                                             ->schema([
                                                 Forms\Components\TextInput::make('name.tr')
                                                     ->required()
-                                                    ->label('Grup Adı'),
+                                                    ->label(__('panel.group-name',locale: 'tr')),
                                             ]),
-                                        Forms\Components\Tabs\Tab::make('English')
+                                        Forms\Components\Tabs\Tab::make(__('panel.english'))
                                             ->schema([
                                                 Forms\Components\TextInput::make('name.en')
-                                                    ->label('Group Name'),
+                                                    ->label(__('panel.group-name',locale: 'en')),
                                             ]),
                                     ]),
                                 Forms\Components\TextInput::make('sort')
                                     ->numeric()
                                     ->default(0)
-                                    ->label('Sıralama'),
+                                    ->label(__('panel.sort')),
                             ]),
 
-                        Forms\Components\Tabs::make('Translations')
+                        Forms\Components\Tabs::make(__('panel.translations'))
                             ->tabs([
-                                Forms\Components\Tabs\Tab::make('Türkçe')
+                                Forms\Components\Tabs\Tab::make(__('panel.turkish'))
                                     ->schema([
                                         Forms\Components\TextInput::make('name.tr')
                                             ->required()
-                                            ->label('Özellik Adı'),
+                                            ->label(__('panel.attributes-name',locale: 'tr')),
                                     ]),
                                 Forms\Components\Tabs\Tab::make('English')
                                     ->schema([
                                         Forms\Components\TextInput::make('name.en')
-                                            ->label('Specification Name'),
+                                            ->label(__('panel.attributes-name',locale: 'en')),
                                     ]),
                             ]),
 
                         Forms\Components\Select::make('type')
                             ->options([
-                                'text' => 'Metin',
-                                'textarea' => 'Uzun Metin',
-                                'select' => 'Seçim',
-                                'multiselect' => 'Çoklu Seçim',
-                                'list' => 'Liste',
-                                'table' => 'Tablo',
-                                'content' => 'İçerik',
+                                'text' => __('panel.text'),
+                                'textarea' => __('panel.textarea'),
+                                'select' => __('panel.select'),
+                                'multiselect' => __('panel.multiselect'),
+                                'list' => __('panel.list'),
+                                'table' => __('panel.table'),
+                                'content' => __('panel.content'),
                             ])
                             ->required()
                             ->live()
-                            ->label('Tip'),
+                            ->label(__('panel.type')),
 
-                        Forms\Components\Section::make('Değerler')
+                        Forms\Components\Section::make(__('values'))
                             ->schema(fn (Forms\Get $get) => match ($get('type')) {
                                 'text' => [
                                     Forms\Components\Repeater::make('values')
                                         ->relationship()
                                         ->schema([
-                                            Forms\Components\Tabs::make('Translations')
+                                            Forms\Components\Tabs::make(__('panel.translations'))
                                                 ->tabs([
-                                                    Forms\Components\Tabs\Tab::make('Türkçe')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.turkish'))
                                                         ->schema([
                                                             Forms\Components\TextInput::make('value.tr')
-                                                                ->placeholder('Örnek: 100x50x30 cm')
-                                                                ->label('Örnek Değer'),
+                                                                ->placeholder(__('panel.value-exp',locale: 'tr'))
+                                                                ->label(__('panel.example-value',locale: 'tr')),
                                                         ]),
-                                                    Forms\Components\Tabs\Tab::make('English')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.english'))
                                                         ->schema([
                                                             Forms\Components\TextInput::make('value.en')
-                                                                ->placeholder('Example: 100x50x30 cm')
-                                                                ->label('Example Value'),
+                                                                ->placeholder(__('panel.value-exp',locale: 'en'))
+                                                                ->label(__('panel.example-value',locale: 'en')),
                                                         ]),
                                                 ]),
                                         ])
                                         ->columns(1)
                                         ->maxItems(1)
-                                        ->label('Örnek Değer'),
+                                        ->label(__('panel.example-value')),
                                 ],
                                 'textarea' => [
                                     Forms\Components\Repeater::make('values')
                                         ->relationship()
                                         ->schema([
-                                            Forms\Components\Tabs::make('Translations')
+                                            Forms\Components\Tabs::make(__('panel.translations'))
                                                 ->tabs([
-                                                    Forms\Components\Tabs\Tab::make('Türkçe')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.turkish'))
                                                         ->schema([
                                                             Forms\Components\Textarea::make('value.tr')
-                                                                ->placeholder('Örnek açıklama metni...')
-                                                                ->label('Örnek Değer'),
+                                                                ->placeholder(__('panel.textarea-exp',locale: 'tr'))
+                                                                ->label(__('panel.example-value',locale: 'tr')),
                                                         ]),
-                                                    Forms\Components\Tabs\Tab::make('English')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.english'))
                                                         ->schema([
                                                             Forms\Components\Textarea::make('value.en')
-                                                                ->placeholder('Example description text...')
-                                                                ->label('Example Value'),
+                                                                ->placeholder(__('panel.textarea-exp',locale: 'en'))
+                                                                ->label(__('panel.example-value',locale: 'en')),
                                                         ]),
                                                 ]),
                                         ])
                                         ->columns(1)
                                         ->maxItems(1)
-                                        ->label('Örnek Değer'),
+                                        ->label(__('panel.example-value')),
                                 ],
                                 'select', 'multiselect' => [
                                     Forms\Components\Repeater::make('values')
                                         ->relationship()
                                         ->schema([
-                                            Forms\Components\Tabs::make('Translations')
+                                            Forms\Components\Tabs::make(__('panel.translations'))
                                                 ->tabs([
-                                                    Forms\Components\Tabs\Tab::make('Türkçe')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.turkish'))
                                                         ->schema([
                                                             Forms\Components\TextInput::make('value.tr')
                                                                 ->required()
-                                                                ->label('Değer'),
+                                                                ->label(__('panel.value',locale: 'tr')),
                                                         ]),
-                                                    Forms\Components\Tabs\Tab::make('English')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.english'))
                                                         ->schema([
                                                             Forms\Components\TextInput::make('value.en')
-                                                                ->label('Value'),
+                                                                ->label(__('panel.value',locale: 'en')),
                                                         ]),
                                                 ]),
                                         ])
                                         ->columns(1)
-                                        ->label('Seçenekler')
-                                        ->addActionLabel('Yeni Seçenek Ekle')
+                                        ->label(__('panel.options'))
+                                        ->addActionLabel(__('panel.add-new-option'))
                                         ->collapsible()
                                         ->defaultItems(0),
                                 ],
@@ -166,29 +185,29 @@ class ProductSpecificationResource extends Resource
                                     Forms\Components\Repeater::make('values')
                                         ->relationship()
                                         ->schema([
-                                            Forms\Components\Tabs::make('Translations')
+                                            Forms\Components\Tabs::make(__('panel.translations'))
                                                 ->tabs([
-                                                    Forms\Components\Tabs\Tab::make('Türkçe')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.turkish'))
                                                         ->schema([
                                                             Forms\Components\TextInput::make('value.tr')
                                                                 ->required()
-                                                                ->label('Değer'),
+                                                                ->label(__('panel.value',locale: 'tr')),
                                                         ]),
                                                     Forms\Components\Tabs\Tab::make('English')
                                                         ->schema([
                                                             Forms\Components\TextInput::make('value.en')
-                                                                ->label('Value'),
+                                                                ->label(__('panel.value',locale: 'en')),
                                                         ]),
                                                 ]),
                                             SpatieMediaLibraryFileUpload::make('image')
                                                 ->collection('image')
                                                 ->image()
                                                 ->imageEditor()
-                                                ->label('Görsel'),
+                                                ->label(__('panel.image')),
                                         ])
                                         ->columns(1)
-                                        ->label('Liste Öğeleri')
-                                        ->addActionLabel('Yeni Öğe Ekle')
+                                        ->label(__('panel.options'))
+                                        ->addActionLabel(__('panel.add-new-option'))
                                         ->collapsible()
                                         ->defaultItems(0),
                                 ],
@@ -196,46 +215,46 @@ class ProductSpecificationResource extends Resource
                                     Forms\Components\Repeater::make('values')
                                         ->relationship()
                                         ->schema([
-                                            Forms\Components\Tabs::make('Translations')
+                                            Forms\Components\Tabs::make(__('panel.translations'))
                                                 ->tabs([
-                                                    Forms\Components\Tabs\Tab::make('Türkçe')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.turkish'))
                                                         ->schema([
                                                             Forms\Components\TextInput::make('value.tr.label')
                                                                 ->required()
-                                                                ->label('Başlık'),
+                                                                ->label(__('panel.title',locale: 'tr')),
                                                             Forms\Components\Repeater::make('value.tr.items')
                                                                 ->schema([
                                                                     Forms\Components\TextInput::make('value')
                                                                         ->required()
-                                                                        ->label('Title')->columnSpan('full'),
+                                                                        ->label(__('panel.title',locale: 'tr'))->columnSpan('full'),
                                                                 ])
                                                                 ->columns(2)
-                                                                ->label('Değerler')
-                                                                ->addActionLabel('Yeni Değer Ekle')
+                                                                ->label(__('panel.values'))
+                                                                ->addActionLabel(__('panel.add-new-value'))
                                                                 ->collapsible()
                                                                 ->defaultItems(0),
                                                         ]),
-                                                    Forms\Components\Tabs\Tab::make('English')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.english'))
                                                         ->schema([
                                                             Forms\Components\TextInput::make('value.en.label')
-                                                                ->label('Title'),
+                                                                ->label(__('panel.title',locale:'en')),
                                                             Forms\Components\Repeater::make('value.en.items')
                                                                 ->schema([
                                                                     Forms\Components\TextInput::make('value')
                                                                         ->required()
-                                                                        ->label('Title')->columnSpan('full'),
+                                                                        ->label(__('panel.title',locale:'en'))->columnSpan('full'),
                                                                 ])
                                                                 ->columns(2)
-                                                                ->label('Values')
-                                                                ->addActionLabel('Add New Item')
+                                                                ->label(__('panel.values'))
+                                                                ->addActionLabel(__('panel.add-new-value'))
                                                                 ->collapsible()
                                                                 ->defaultItems(0),
                                                         ]),
                                                 ]),
                                         ])
                                         ->columns(1)
-                                        ->label('Tablolar')
-                                        ->addActionLabel('Yeni Sütun Ekle')
+                                        ->label(__('panel.tables'))
+                                        ->addActionLabel(__('panel.add-new-column'))
                                         ->collapsible()
                                         ->defaultItems(0),
                                 ],
@@ -243,23 +262,23 @@ class ProductSpecificationResource extends Resource
                                     Forms\Components\Repeater::make('values')
                                         ->relationship()
                                         ->schema([
-                                            Forms\Components\Tabs::make('Translations')
+                                            Forms\Components\Tabs::make(__('panel.translations'))
                                                 ->tabs([
-                                                    Forms\Components\Tabs\Tab::make('Türkçe')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.turkish'))
                                                         ->schema([
                                                             Forms\Components\RichEditor::make('value.tr')
                                                                 ->required()
-                                                                ->label('İçerik'),
+                                                                ->label(__('panel.content',locale:'tr')),
                                                         ]),
-                                                    Forms\Components\Tabs\Tab::make('English')
+                                                    Forms\Components\Tabs\Tab::make(__('panel.english'))
                                                         ->schema([
                                                             Forms\Components\RichEditor::make('value.en')
-                                                                ->label('Content'),
+                                                                ->label(__('panel.content',locale:'en')),
                                                         ]),
                                                 ]),
                                         ])
                                         ->columns(1)
-                                        ->label('İçerik')
+                                        ->label(__('panel.content'))
                                         ->maxItems(1),
                                 ],
                                 default => [],
@@ -269,7 +288,7 @@ class ProductSpecificationResource extends Resource
                         Forms\Components\TextInput::make('sort')
                             ->numeric()
                             ->default(0)
-                            ->label('Sıralama'),
+                            ->label(__('panel.sort')),
                     ])
             ]);
     }
@@ -279,37 +298,37 @@ class ProductSpecificationResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('group.name')
-                    ->formatStateUsing(fn ($state) => $state['tr'] ?? '')
+                    ->formatStateUsing(fn ($state) => $state ?? '')
                     ->searchable()
                     ->sortable()
-                    ->label('Özellik Grubu'),
+                    ->label(__('panel.specification-groups')),
                 Tables\Columns\TextColumn::make('name')
-                    ->formatStateUsing(fn ($state) => $state['tr'] ?? '')
+                    ->formatStateUsing(fn ($state) => $state ?? '')
                     ->searchable()
                     ->sortable()
-                    ->label('Özellik Adı'),
+                    ->label(__('panel.attributes-name')),
                 Tables\Columns\TextColumn::make('type')
                     ->formatStateUsing(fn ($state) => match ($state) {
-                        'text' => 'Metin',
-                        'textarea' => 'Uzun Metin',
-                        'select' => 'Seçim',
-                        'multiselect' => 'Çoklu Seçim',
-                        'list' => 'Liste',
-                        'table' => 'Tablo',
-                        'content' => 'İçerik',
+                        'text' => __('panel.text'),
+                        'textarea' => __('panel.textarea'),
+                        'select' => __('panel.select'),
+                        'multiselect' => __('panel.multiselect'),
+                        'list' => __('panel.list'),
+                        'table' => __('panel.table'),
+                        'content' => __('panel.content'),
                         default => $state,
                     })
                     ->searchable()
                     ->sortable()
-                    ->label('Tip'),
+                    ->label(__('panel.type')),
                 Tables\Columns\TextColumn::make('sort')
                     ->numeric()
                     ->sortable()
-                    ->label('Sıralama'),
+                    ->label(__('panel.sort')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->label('Oluşturulma Tarihi'),
+                    ->label(__('panel.created_at')),
             ])
             ->filters([
                 //

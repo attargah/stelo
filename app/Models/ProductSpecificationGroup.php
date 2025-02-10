@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 
 class ProductSpecificationGroup extends Model
 {
-    use HasTranslations;
+    use HasTranslations,HasRoles;
 
     public array $translatable = [
         'name'
@@ -28,4 +29,4 @@ class ProductSpecificationGroup extends Model
     {
         return $this->hasMany(ProductSpecification::class, 'specification_group_id');
     }
-} 
+}

@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 
 class ProductSpecificationValue extends Model implements HasMedia
 {
-    use InteractsWithMedia,HasTranslations;
+    use InteractsWithMedia,HasTranslations,HasRoles;
 
     public array $translatable = [
         'value'

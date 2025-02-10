@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 
 class Product extends Model implements HasMedia
 {
-    use InteractsWithMedia, HasTranslatableSlug, HasTranslations;
+    use InteractsWithMedia, HasTranslatableSlug, HasTranslations,HasRoles;
 
     public array $translatable = [
         'name',
@@ -72,5 +73,10 @@ class Product extends Model implements HasMedia
     public function scopeBySlug($query, $slug)
     {
         return $query->whereJsonContains("slug->{$this->getLocale()}", $slug);
+    }
+
+    public function relatedProducts(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'related_products', 'product_id', 'related_product_id');
     }
 }

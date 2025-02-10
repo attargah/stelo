@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Permission\Traits\HasRoles;
 use Spatie\Translatable\HasTranslations;
 
 class ProductLabel extends Model
 {
-    use HasTranslations;
+    use HasTranslations,HasRoles;
 
     public array $translatable = [
         'name'

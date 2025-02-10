@@ -25,32 +25,46 @@ class PageSettings extends SettingsPage
         return SiteSettings::class;
     }
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('panel.settings');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('panel.site-settings');
+    }
+
+    public function getTitle(): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return __('panel.site-settings');
+    }
 
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('Genel Ayarlar')
+                Section::make(__('panel.general-settings'))
                     ->schema([
                         TextInput::make('site_name')
                             ->required()
-                            ->label('Site Adı'),
+                            ->label(__('panel.site-name')),
 
                         Textarea::make('site_description')
-                            ->label('Site Açıklaması'),
+                            ->label(__('panel.site-description')),
 
                         Textarea::make('site_keywords')
-                            ->label('Site Anahtar Kelimeleri')
-                            ->helperText('Virgül ile ayırarak yazınız'),
+                            ->label(__('panel.site-keywords'))
+                            ->helperText(__('panel.site-keywords-placeholder')),
 
                         TextInput::make('site_title_separator')
-                            ->label('Sayfa Başlığı Ayırıcı')
-                            ->placeholder('Örnek: |, -, >')
+                            ->label(__('panel.site-title-separator'))
+                            ->placeholder(__('panel.site-title-separator-placeholder'))
                             ->maxLength(5),
                     ]),
 
-                Section::make('Logo Ayarları')
+                Section::make(__('panel.logo-settings'))
                     ->schema([
                         FileUpload::make('site_logo')
                             ->image()
@@ -59,7 +73,7 @@ class PageSettings extends SettingsPage
                             ->visibility('public')
                             ->preserveFilenames()
                             ->maxSize(5120)
-                            ->label('Site Logo'),
+                            ->label(__('panel.site-logo')),
 
                         FileUpload::make('site_white_logo')
                             ->image()
@@ -68,30 +82,30 @@ class PageSettings extends SettingsPage
                             ->visibility('public')
                             ->preserveFilenames()
                             ->maxSize(5120)
-                            ->label('Site Beyaz Logo'),
+                            ->label(__('panel.site-white-logo')),
                     ]),
 
-                Section::make('İletişim Bilgileri')
+                Section::make(__('panel.contact-informations'))
                     ->schema([
                         TextInput::make('site_author')
-                            ->label('Site Sahibi'),
+                            ->label(__('panel.site_author')),
 
                         TextInput::make('site_email')
                             ->email()
-                            ->label('E-posta Adresi'),
+                            ->label(__('panel.site_email')),
 
                         TextInput::make('site_phone')
                             ->tel()
-                            ->label('Telefon Numarası'),
+                            ->label(__('panel.site_phone')),
                     ]),
 
-                Section::make('Sosyal Medya')
+                Section::make(__('panel.social-media'))
                     ->schema([
                         Repeater::make('site_social')
                             ->schema([
                                 TextInput::make('platform')
                                     ->required()
-                                    ->label('Platform')
+                                    ->label(__('panel.platform'))
                                     ->datalist([
                                         'Facebook',
                                         'Twitter',
@@ -103,18 +117,18 @@ class PageSettings extends SettingsPage
                                 TextInput::make('url')
                                     ->required()
                                     ->url()
-                                    ->label('URL'),
+                                    ->label(__('panel.url')),
 
                                 TextInput::make('icon')
-                                    ->label('İkon')
+                                    ->label(__('panel.icon'))
                                     ->placeholder('fab fa-facebook')
                             ])
                             ->columns(3)
                             ->defaultItems(0)
                             ->reorderableWithButtons()
                             ->collapsible()
-                            ->label('Sosyal Medya Hesapları')
-                            ->addActionLabel('Yeni Hesap Ekle'),
+                            ->label(__('panel.social_media_accounts'))
+                            ->addActionLabel(__('panel.add-new-account')),
                     ]),
             ]);
     }

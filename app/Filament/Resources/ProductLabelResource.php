@@ -21,29 +21,48 @@ class ProductLabelResource extends Resource
 
     protected static ?string $navigationGroup = 'Products';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('panel.products');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('panel.product-labels');
+    }
+
+    public function getTitle(): string|\Illuminate\Contracts\Support\Htmlable
+    {
+        return __('panel.product-label');
+    }
+    public static function getModelLabel(): string
+    {
+        return  __('panel.product-label');
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
-                        Forms\Components\Tabs::make('Translations')
+                        Forms\Components\Tabs::make(__('panel.translations'))
                             ->tabs([
-                                Forms\Components\Tabs\Tab::make('Türkçe')
+                                Forms\Components\Tabs\Tab::make(__('panel.turkish'))
                                     ->schema([
                                         Forms\Components\TextInput::make('name.tr')
                                             ->required()
-                                            ->label('Etiket Adı'),
+                                            ->label(__('panel.label-name',locale: 'tr')),
                                     ]),
-                                Forms\Components\Tabs\Tab::make('English')
+                                Forms\Components\Tabs\Tab::make(__('panel.english'))
                                     ->schema([
                                         Forms\Components\TextInput::make('name.en')
-                                            ->label('Label Name'),
+                                            ->label(__('panel.label-name',locale: 'en')),
                                     ]),
                             ]),
                         Forms\Components\ColorPicker::make('color')
                             ->required()
-                            ->label('Renk'),
+                            ->label(__('panel.color')),
                     ])
             ]);
     }
@@ -52,16 +71,16 @@ class ProductLabelResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name.tr')
+                Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable()
-                    ->label('Etiket Adı'),
+                    ->label(__('panel.label-name')),
                 Tables\Columns\ColorColumn::make('color')
-                    ->label('Renk'),
+                    ->label(__('panel.color')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->label('Oluşturulma Tarihi'),
+                    ->label(__('panel.created_at')),
             ])
             ->filters([
                 //

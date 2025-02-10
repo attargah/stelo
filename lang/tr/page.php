@@ -17,4 +17,9 @@ return [
     'send-form'=>'Formu Gönder',
     'approve_text' => 'Aydınlatma Metni',
     'read-and-accept' => "'nı okudum ve onaylıyorum.",
+    'your-email'=>'E-Posta Adresiniz',
+    'your-phone'=>'Telefon Numaranız',
+    'subscribe'=>'Abone Ol',
+    'mail-marketing-approve-text'=>'Paylaştığım e-posta adresimin :html kullanılmasını onaylıyorum.',
+    'stelo-mail-marketing'=> 'Stelo e-bülten iletişiminde'
 ];

@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MailMarketingRequest;
 use App\Http\Requests\ProductFormRequest;
+use App\Models\MailMarketingForm;
 use App\Models\Product;
 use App\Models\ProductPriceRequest;
 use App\Settings\SiteSettings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class MainController extends Controller
 {
 
 
-    public function product($slug = null){
+    public function product($slug = null)
+    {
 
 
         $product = Product::bySlug($slug)->firstOrFail();
+
 
         return view('product-detail', compact('product'));
     }
@@ -24,10 +30,10 @@ class MainController extends Controller
     {
         $request->validated();
 
-        $product = Product::query()->where('code',$request->product_code)->first();
+        $product = Product::query()->where('code', $request->product_code)->first();
 
         if (empty($product)) {
-            return back()->withErrors(['Beklenmedik bir hata oluştu. Lütfen sayfayı yenileyip yeniden deneyin.']);
+            return back()->withErrors([__('messages.product_form.isset_validation')]);
         }
 
         $data = $request->only(['name', 'phone', 'email', 'note']);
@@ -35,6 +41,39 @@ class MainController extends Controller
         $data['product_id'] = $product->id;
         ProductPriceRequest::create($data);
 
-        return back()->with('success', 'Fiyat talebiniz başarıyla iletilmiştir. En kısa sürede belirttiğiniz iletişim adreslerine geri dönüş sağlanacaktır!');
+        return back()->with('success', __('messages.product_form.success'));
     }
+
+    public function handleMailMarketingForm(MailMarketingRequest $request)
+    {
+
+        $request->validated();
+        $form = MailMarketingForm::query()->where('email', $request->email)->first();
+
+        if (!empty($form)) {
+            return back()->withErrors([__('messages.mail_marketing.email_validation')]);
+        }
+
+        $data = [
+            'phone' => empty($request->phone) ? '' : $request->phone,
+            'email' => empty($request->email) ? '' : $request->email,
+        ];
+
+        MailMarketingForm::create($data);
+
+        return back()->with('success', __('messages.mail_marketing.success'));
+
+    }
+
+    public function language($locale)
+    {
+
+        App::setLocale($locale);
+        Session::put('locale', $locale);
+        config(['app.locale' => $locale]);
+
+
+        return redirect()->back();
+    }
+
 }

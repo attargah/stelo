@@ -19,7 +19,7 @@ class AttributesRelationManager extends RelationManager
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
-        return 'Özellikler';
+        return __('panel.attributes');
     }
 
     public function getTableRecordTitle(?Model $record): string
@@ -31,18 +31,18 @@ class AttributesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\Tabs::make('Translations')
+                Forms\Components\Tabs::make(__('panel.attributes'))
                     ->tabs([
-                        Forms\Components\Tabs\Tab::make('Türkçe')
+                        Forms\Components\Tabs\Tab::make(__('panel.attributes'))
                             ->schema([
                                 Forms\Components\TextInput::make('title.tr')
-                                    ->label('Özellik Adı')
+                                    ->label(__('panel.attributes-name',locale: 'tr'))
                                     ->required(),
                             ]),
                         Forms\Components\Tabs\Tab::make('English')
                             ->schema([
                                 Forms\Components\TextInput::make('title.en')
-                                    ->label('Attribute Name'),
+                                    ->label(__('panel.attributes-name',locale: 'en')),
                             ]),
                     ])
             ]);
@@ -53,7 +53,7 @@ class AttributesRelationManager extends RelationManager
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title.tr')
-                    ->label('Özellik Adı'),
+                    ->label(__('panel.attributes-name')),
             ])
             ->filters([
                 //

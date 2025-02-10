@@ -39,18 +39,18 @@ class ProductFormRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'Ad Soyad alanı zorunludur.',
-            'name.max' => 'Ad Soyad alanı en fazla 255 karakter olabilir.',
-            'phone.required' => 'Telefon alanı zorunludur.',
-            'phone.regex' => 'Geçerli bir telefon numarası giriniz.',
-            'phone.min' => 'Telefon numarası en az 10 karakter olmalıdır.',
-            'email.required' => 'E-posta alanı zorunludur.',
-            'email.email' => 'Geçerli bir e-posta adresi giriniz.',
-            'product_code.required' => 'Ürün kodu zorunludur.',
-            'product_code.exists' => 'Geçersiz ürün kodu.',
-            'note.max' => 'Not alanı en fazla 1000 karakter olabilir.',
-            'approve_check.required' => 'Aydınlatma metnini kabul etmelisiniz.',
-            'approve_check.accepted' => 'Aydınlatma metnini kabul etmelisiniz.',
+            'name.required' => __('messages.name.required'),
+            'name.max' => __('messages.name.max'),
+            'phone.required' => __('messages.phone.required'),
+            'phone.regex' => __('messages.phone.regex'),
+            'phone.min' => __('messages.phone.min'),
+            'email.required' => __('messages.email.required'),
+            'email.email' => __('messages.email.email'),
+            'product_code.required' => __('messages.product_code.required'),
+            'product_code.exists' => __('messages.product_code.exists'),
+            'note.max' => __('messages.note.max'),
+            'approve_check.required' => __('messages.approve_check.required'),
+            'approve_check.accepted' => __('messages.approve_check.accepted'),
         ];
     }
 
@@ -61,13 +61,14 @@ class ProductFormRequest extends FormRequest
      */
     public function attributes(): array
     {
+
         return [
-            'name' => 'Ad Soyad',
-            'phone' => 'Telefon',
-            'email' => 'E-posta',
-            'product_code' => 'Ürün Kodu',
-            'note' => 'Not',
-            'approve_check' => 'Aydınlatma Metni',
+            'name' => __('page.name'),
+            'phone' => __('page.phone'),
+            'email' => __('page.email'),
+            'product_code' => __('page.product-name'),
+            'note' => __('page.note'),
+            'approve_check' => __('page.approve_text'),
         ];
     }
 }
