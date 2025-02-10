@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use TomatoPHP\FilamentSettingsHub\Facades\FilamentSettingsHub;
+use TomatoPHP\FilamentSettingsHub\Services\Contracts\SettingHold;
+use App\Settings\SiteSettings;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+
     }
 
     /**
@@ -28,16 +32,18 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::unguard();
 
+
         Gate::before(function (User $user, string $ability) {
             return $user->isSuperAdmin() ? true: null;
         });
 
         Gate::policy(Role::class, RolePolicy::class);
         Gate::policy(Permission::class, PermissionPolicy::class);
-        Gate::define('use-translation-manager', function (?User $user) {
-            // Your authorization logic
-            return $user !== null && $user->hasRole('user');
-        });
 
+
+        View::composer('*', function ($view) {
+            $settings = app(SiteSettings::class);
+            $view->with('settings', $settings);
+        });
     }
 }

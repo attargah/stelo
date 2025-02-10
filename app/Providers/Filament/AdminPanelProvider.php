@@ -3,10 +3,7 @@
 namespace App\Providers\Filament;
 
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
-use App\Models\MenuItem;
-use App\Models\MenuLocation;
-use Datlechin\FilamentMenuBuilder\FilamentMenuBuilderPlugin;
-use Datlechin\FilamentMenuBuilder\Models\Menu;
+
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -23,9 +20,6 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Kenepa\TranslationManager\TranslationManagerPlugin;
-use TomatoPHP\FilamentMenus\FilamentMenusPlugin;
-use TomatoPHP\FilamentSettingsHub\FilamentSettingsHubPlugin;
 use TomatoPHP\FilamentUsers\FilamentUsersPlugin;
 
 class AdminPanelProvider extends PanelProvider
@@ -69,13 +63,7 @@ class AdminPanelProvider extends PanelProvider
                     FilamentSpatieRolesPermissionsPlugin::make(),
                     FilamentUsersPlugin::make(),
                     SpatieLaravelTranslatablePlugin::make()->defaultLocales(['en', 'tr']),
-                    TranslationManagerPlugin::make(),
-                    FilamentSettingsHubPlugin::make()->allowSiteSettings()->allowSocialMenuSettings(),
-                    FilamentMenuBuilderPlugin::make()
-                        ->addLocations(['header'=>'Header','footer'=>'Footer'])
-                        ->usingMenuModel(Menu::class)
-                        ->usingMenuItemModel(MenuItem::class)
-                        ->usingMenuLocationModel(MenuLocation::class)
+
                 ]
             );
     }
