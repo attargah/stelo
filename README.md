@@ -41,7 +41,10 @@ Projenin doğru bir şekilde çalışabilmesi için aşağıdaki adımları taki
    ```bash
    php artisan storage:link
    ```
-
+8. **App Key Oluşturun**:
+    ```bash
+   php artisan key:generate
+    ```
 ## Kullanım
 
 Projenin geliştirme ortamında çalışabilmesi için aşağıdaki komutu kullanarak sunucuyu başlatabilirsiniz:
